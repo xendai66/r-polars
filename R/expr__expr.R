@@ -1846,6 +1846,19 @@ Expr_nan_min = "use_extendr_wrapper"
 Expr_sum = "use_extendr_wrapper"
 
 
+#' sum_add2
+#' @keywords Expr
+#' @description
+#' Get sum value with addition of constant literal (2)
+#'
+#' @details
+#'  Dtypes in {Int8, UInt8, Int16, UInt16} are cast to
+#' Int64 before summing to prevent overflow issues.
+#'
+#' @return Expr
+#' @examples
+#' pl$DataFrame(list(x=c(1L,NA,2L)))$select(pl$col("x")$sum_add2())# 5
+Expr_sum_add2 = "use_extendr_wrapper"
 
 #' mean
 #' @keywords Expr

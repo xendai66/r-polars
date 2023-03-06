@@ -351,6 +351,11 @@ impl Expr {
         self.0.clone().sum().into()
     }
 
+    pub fn sum_add2(&self) -> Self {
+        let expr = pl::Expr::Literal(pl::LiteralValue::UInt32(2));
+        self.0.clone().sum().add(expr.clone().into()).into()
+    }
+
     pub fn product(&self) -> Self {
         self.clone().0.product().into()
     }

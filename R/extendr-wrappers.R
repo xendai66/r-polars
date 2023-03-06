@@ -281,6 +281,8 @@ Expr$median <- function() .Call(wrap__Expr__median, self)
 
 Expr$sum <- function() .Call(wrap__Expr__sum, self)
 
+Expr$sum_add2 <- function() .Call(wrap__Expr__sum_add2, self)
+
 Expr$product <- function() .Call(wrap__Expr__product, self)
 
 Expr$n_unique <- function() .Call(wrap__Expr__n_unique, self)
