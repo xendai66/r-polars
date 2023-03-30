@@ -159,6 +159,33 @@ fn recursive_robjname2series_tree(x: &Robj, name: &str) -> pl::PolarsResult<Seri
             })
         }
 
+         Rtype::Raw => {
+
+// First Approach 
+            let rraw = x.as_raw_slice().expect("as matched");
+            let data = rraw
+                .iter()
+                .map(|b| Some(vec![*b]))
+                .collect::<Vec<Option<Vec<u8>>>>
+
+// Second Approach 
+            // Convert Vec<u8> in order to pass it to from_utf8
+            let vec = rraw
+                .iter()
+                .map(|b| *b)
+                .collect::<Vec<u8>>();
+
+            // by calling from_utf8 it merges bytes
+            let data = String::from_utf8(vec)
+                .iter()
+                .map(|ss| Some(vec![ss.as_bytes()]))
+                .collect::<Vec<Option<Vec<[u8]>>>>();
+            
+
+            let s = pl::Series::new(name, data);
+            Ok(SeriesTree::Series(s))
+        }
+
         _ => Err(pl::PolarsError::InvalidOperation(
             polars::error::ErrString::Owned(format!(
                 "new series from rtype {:?} is not supported (yet)",
